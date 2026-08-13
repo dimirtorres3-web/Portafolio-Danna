@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portafolio — Danna Lucia Almada Torres</title>
+
+  <!-- Estilos internos: esquema oceánico con acento cálido (coral) y diseño responsive -->
+  <style>
+    /* -------- Variables de tema (colores oceánicos + acento "saraa" coral) -------- */
+    :root{
+      --bg: #031424; /* fondo muy oscuro con matiz azul océano */
+      --panel: rgba(255,255,255,0.03);
+      --muted: rgba(255,255,255,0.72);
+      --accent: #00b4d8; /* azul océano claro */
+      --accent-2: #0077b6; /* azul profundo */
+      --accent-coral: #ff6b6b; /* acento cálido ("saraa") */
+      --glass: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      --radius: 12px;
+      --max-width: 1100px;
+      --card-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      --glass-border: rgba(255,255,255,0.04);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    /* -------- Reset ligero y base -------- */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: radial-gradient(900px 400px at 10% 10%, rgba(0,180,216,0.06), transparent),
+                  radial-gradient(700px 300px at 90% 90%, rgba(0,119,182,0.04), transparent),
+                  var(--bg);
+      color: #e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding:36px 18px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      gap:24px;
+      font-size:16px;
+    }
+
+    /* -------- Contenedor principal centrado -------- */
+    .wrap{
+      width:100%;
+      max-width:var(--max-width);
+    }
+
+    /* -------- Header / Navegación simple -------- */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:28px;
+    }
+    .brand{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      text-decoration:none;
+      color:inherit;
+    }
+    .logo{
+      width:56px;
+      height:56px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      box-shadow: var(--card-shadow);
+      flex-shrink:0;
+    }
+    .brand h1{
+      font-size:18px;
+      margin:0;
+      letter-spacing:0.2px;
+    }
+    .brand p{margin:0;font-size:13px;color:var(--muted)}
+
+    nav{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      padding:8px 12px;
+      border-radius:10px;
+      transition:all .18s ease;
+      font-size:14px;
+    }
+    nav a:hover{background:var(--panel); color:#fff; transform:translateY(-2px)}
+
+    /* -------- Hero / Encabezado principal -------- */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:28px;
+      align-items:center;
+      margin-bottom:36px;
+    }
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+    }
+
+    .intro{
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      padding:28px;
+      border-radius:var(--radius);
+      box-shadow: var(--card-shadow);
+    }
+    .intro h2{
+      margin:0 0 8px 0;
+      font-size:28px;
+      letter-spacing: -0.4px;
+    }
+    .intro .role{
+      font-weight:600;
+      color:var(--accent);
+      margin-bottom:12px;
+    }
+    .intro p.lead{
+      margin:0 0 18px 0;
+      color:var(--muted);
+    }
+
+    .cta-row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      background:transparent;
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.06);
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      transition:all 0.3s ease; /* transición más suave solicitada */
+      font-size:14px;
+    }
+    .btn.primary{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#06121a;
+      border:none;
+      box-shadow: 0 10px 30px rgba(0,119,182,0.14);
+    }
+    .btn.accent-coral{
+      background:var(--accent-coral);
+      color:#07131a;
+      border:none;
+    }
+    .btn:hover{transform:translateY(-4px)}
+
+    /* Tarjeta de resumen lateral (foto o ilustración) */
+    .card-side{
+      background: var(--panel);
+      border-radius:var(--radius);
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:center;
+      border:1px solid var(--glass-border);
+    }
+    /* Ajuste: hacer el avatar más vertical para mostrar la cabeza completa y evitar recortes */
+    .avatar{
+      width:160px;
+      height:240px; /* altura mayor para respetar proporción vertical de la foto */
+      border-radius:18px;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg,#04293a 0%, rgba(255,255,255,0.02) 100%);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.6);
+      flex-shrink:0;
+    }
+    /* Mostrar la imagen completa dentro del contenedor (sin recorte) y alinear el encuadre hacia la parte superior */
+    .avatar img{width:100%;height:100%;object-fit:contain;object-position:center top;border-radius:12px;background-color:transparent}
+    .meta{
+      text-align:center;
+    }
+    .meta h3{margin:6px 0 0 0;font-size:16px}
+    .meta p{margin:6px 0 0 0;color:var(--muted);font-size:14px}
+
+    /* -------- Secciones: Sobre mí, Proyectos, Contacto -------- */
+    section{margin-bottom:28px}
+    .section-header{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:16px}
+    .section-header h3{margin:0;font-size:18px}
+    .section-header p{margin:0;color:var(--muted);font-size:13px}
+
+    .panel{background: var(--panel);border-radius:12px;padding:20px;border:1px solid var(--glass-border);box-shadow: 0 6px 24px rgba(2,6,23,0.45)}
+
+    /* Sobre mi: estilo del texto */
+    .about p{margin:0;color:var(--muted)}
+
+    /* Grid de proyectos */
+    .projects-grid{display:grid;grid-template-columns: repeat(3, 1fr);gap:18px;margin-top:12px}
+    @media (max-width:1000px){.projects-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.projects-grid{grid-template-columns:1fr}}
+
+    .project-card{background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.006));border-radius:12px;overflow:hidden;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,0.03);transition:transform .18s ease, box-shadow .18s ease}
+    .project-card:hover{transform:translateY(-8px);box-shadow: 0 18px 40px rgba(2,6,23,0.6)}
+    .project-img{width:100%;height:170px;background:linear-gradient(135deg, rgba(0,180,216,0.12), rgba(0,119,182,0.06));display:flex;align-items:center;justify-content:center;color: #eaf6f0;font-weight:600}
+    .project-body{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1}
+    .project-body h4{margin:0;font-size:16px}
+    .project-body p{margin:0;color:var(--muted);font-size:14px}
+    .project-footer{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-top:1px solid rgba(255,255,255,0.02);background:linear-gradient(180deg, rgba(255,255,255,0.008), transparent)}
+    .tag{font-size:13px;color:var(--muted)}
+
+    /* Contacto: iconos simples */
+    .contacts{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:8px}
+    .contact-link{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.02);font-size:14px;transition:all .14s ease}
+    .contact-link:hover{color:#fff; transform:translateY(-3px); background:var(--panel)}
+
+    /* Pie / nota pequeña */
+    footer{color:var(--muted);font-size:13px;margin-top:18px;text-align:center}
+
+    /* Pequeños detalles responsivos */
+    @media (max-width:520px){body{padding:20px}.brand h1{font-size:16px}.logo{width:48px;height:48px}}
+
+    /* Transiciones más suaves para botones y enlaces de contacto */
+    .btn, .contact-link { transition: all 0.3s ease; }
+
+    /* Media helper: imágenes y videos en tarjetas (no recortar, centrar) */
+    .project-media{display:block;width:100%;height:auto;max-height:420px;object-fit:contain;border-radius:8px}
+    .project-img{display:flex;align-items:center;justify-content:center;padding:12px;overflow:hidden}
+
+    /* In-card video controls (visible en el cuadro para permitir audio) */
+    .in-card-controls{position:absolute;right:12px;bottom:12px;display:flex;gap:8px;z-index:5}
+    .in-card-controls button{background:rgba(0,0,0,0.6);border:0;color:#fff;padding:8px 10px;border-radius:8px;cursor:pointer}
+    .in-card-controls button:hover{transform:scale(1.04)}
+
+    /* Ensure video fits inside the card without overflowing */
+    .card-video{width:100%;height:100%;max-height:520px;object-fit:contain;border-radius:8px;display:block}
+
+
+    /* Glassmorphism: desenfoque de fondo en paneles para dar profundidad */
+    .intro, .panel, .card-side { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+
+    /* Media de proyecto: mostrar las imágenes/videos completos sin recorte y con un marco sutil */
+    .project-img{
+      padding:12px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.45);
+      min-height:420px; /* espacio para mostrar la imagen completa */
+      overflow:hidden; /* evitar que el video salga del cuadro */
+      position:relative;
+    }
+
+    /* Video: mantener proporción, no recortar */
+    .project-video{
+      width:auto;
+      max-width:100%;
+      height:auto;
+      max-height:520px;
+      object-fit:contain;
+      display:block;
+      border-radius:8px;
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.06);
+    }
+
+    /* Slideshow de imágenes (fallback) - mostrar entero y centrado */
+    .slideshow{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:8px;
+      overflow:visible;
+    }
+    .slideshow .slide{
+      display:none;
+      width:auto;
+      max-width:100%;
+      height:auto;
+      opacity:0;
+      transition:opacity 0.8s ease;
+      margin:0 auto;
+    }
+    .slideshow .slide.visible{display:block;opacity:1}
+    .slideshow img{display:block;width:auto;max-width:100%;height:auto;object-fit:contain;margin:0 auto}
+    /* Si querés que la imagen se vea más 'en el fondo', se puede escalar levemente */
+    .slideshow img.bg-recess{transform:scale(0.96);filter:brightness(0.98)}
+
+    /* Estilos para la diapositiva de video y el overlay de reproducción de audio */
+    .video-slide{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%;}
+    .slide-video{width:100%;height:100%;max-height:none;object-fit:cover;border-radius:8px;display:block}
+    .video-play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.6);color:#fff;border:0;padding:10px 14px;border-radius:8px;cursor:pointer;display:none}
+    .video-slide .video-play-overlay{display:none}
+
+
+    /* WhatsApp flotante */
+    .whatsapp-float{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      width:56px;
+      height:56px;
+      background:#25D366;
+      color:#fff;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 8px 24px rgba(2,6,23,0.45);
+      z-index:9999;
+      text-decoration:none;
+      transform:translateZ(0);
+      animation:whatsapp-pulse 2.6s ease-in-out infinite;
+    }
+    .whatsapp-float:hover{transform:scale(1.06); box-shadow:0 12px 32px rgba(2,6,23,0.6); animation:none;}
+    @keyframes whatsapp-pulse{
+      0%{box-shadow:0 0 0 0 rgba(37,211,102,0.35)}
+      70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}
+      100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- Header con marca y navegación interna -->
+    <header>
+      <a class="brand" href="#inicio" aria-label="Ir al inicio">
+        <div class="logo" role="img" aria-hidden="true">DA</div>
+        <div>
+          <h1>Danna Lucia Almada Torres</h1>
+          <p>Portafolio personal</p>
+        </div>
+      </a>
+
+      <nav aria-label="Navegación principal">
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </header>
+
+    <!-- HERO / Encabezado principal -->
+    <main>
+      <section id="inicio" class="hero" aria-labelledby="titulo-principal">
+        <div class="intro panel" role="region" aria-label="Introducción">
+          <h2 id="titulo-principal">Hola, soy Danna Lucia</h2>
+          <div class="role">Diseñadora Gráfica · Diseño Publicitario · Marketing</div>
+          <p class="lead">Estudiante de la Universidad Americana, tercer año. Me apasiona crear piezas visuales con impacto comercial y estético, enfocándome en comunicación clara y resultados para marcas y campañas.</p>
+
+          <div class="cta-row">
+            <a class="btn primary" href="#proyectos">Ver proyectos</a>
+            <a class="btn accent-coral" href="#contacto">Contactar</a>
+          </div>
+
+          <!-- Pequeña lista de habilidades resumidas -->
+          <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
+            <span class="btn" style="padding:6px 10px; font-size:13px; border-radius:8px;">Diseño Gráfico</span>
+            <span class="btn" style="padding:6px 10px; font-size:13px; border-radius:8px;">Diseño Publicitario</span>
+            <span class="btn" style="padding:6px 10px; font-size:13px; border-radius:8px;">Marketing</span>
+          </div>
+        </div>
+
+        <!-- Tarjeta lateral: avatar y contacto rápido -->
+        <aside class="card-side" aria-label="Tarjeta personal">
+          <div class="avatar" aria-hidden="true">
+            <!-- Foto de perfil: coloca tu imagen en assets/img/profile.png -->
+            <img src="assets/img/profile.png" alt="Foto de Danna Lucia" loading="lazy" style="width:100%;height:100%;object-fit:contain;object-position:center top;border-radius:10px;" />
+          </div>
+
+          <div class="meta">
+            <h3>Danna Lucia Almada Torres</h3>
+            <p>Estudiante · Universidad Americana (3er año)</p>
+          </div>
+
+          <div style="width:100%; display:flex; gap:8px; justify-content:center;">
+            <a class="contact-link" href="#contacto">Contacto</a>
+            <a class="contact-link" href="#proyectos">Proyectos</a>
+          </div>
+        </aside>
+      </section>
+
+      <!-- SOBRE MÍ -->
+      <section id="sobre-mi" aria-labelledby="sobre-mi-titulo">
+        <div class="section-header">
+          <div>
+            <h3 id="sobre-mi-titulo">Sobre mí</h3>
+            <p>Breve resumen profesional y habilidades principales</p>
+          </div>
+        </div>
+
+        <div class="panel about">
+          <!-- Texto que menciona experiencia y 3 habilidades -->
+          <p>
+            Soy estudiante y diseñadora en formación con interés en la comunicación visual aplicada a
+            la publicidad y el marketing. Trabajo en proyectos que requieren creatividad y estrategia,
+            desde la conceptualización hasta la entrega final de piezas gráficas y campañas digitales.
+            Mis habilidades principales son: Diseño Gráfico, Diseño Publicitario y Marketing.
+          </p>
+        </div>
+      </section>
+
+      <!-- PROYECTOS -->
+      <section id="proyectos" aria-labelledby="proyectos-titulo">
+        <div class="section-header">
+          <div>
+            <h3 id="proyectos-titulo">Proyectos</h3>
+            <p>Tres ejemplos destacados de trabajo</p>
+          </div>
+        </div>
+
+        <div class="projects-grid" role="list">
+          <!-- Proyecto 1 -->
+          <article class="project-card" role="listitem" aria-label="Proyecto 1">
+            <div class="project-img" aria-hidden="true">
+              <img src="assets/img/slideshow-1.jpg" alt="Proyecto 1 - Marketing" class="project-media" />
+            </div>
+            <div class="project-body">
+              <h4>Identidad Visual para Marca X</h4>
+              <p>Diseño de logotipo, paleta de colores y piezas publicitarias para lanzamiento comercial.</p>
+            </div>
+            <div class="project-footer">
+              <span class="tag">Branding</span>
+              <a class="btn" href="#" aria-label="Ver más del proyecto 1">Ver más</a>
+            </div>
+          </article>
+
+          <!-- Proyecto 2 -->
+          <article class="project-card" role="listitem" aria-label="Proyecto 2">
+            <div class="project-img" aria-hidden="true">
+              <img src="assets/img/slideshow-2.jpg" alt="Proyecto 2 - Marketing" class="project-media" />
+            </div>
+            <div class="project-body">
+              <h4>Video Promocional para Producto Y</h4>
+              <p>Edición y montaje orientado a redes, con enfoque en conversión y retención.</p>
+            </div>
+            <div class="project-footer">
+              <span class="tag">Video</span>
+              <a class="btn" href="#" aria-label="Ver más del proyecto 2">Ver más</a>
+            </div>
+          </article>
+
+          <!-- Proyecto 3 -->
+          <article class="project-card" role="listitem" aria-label="Proyecto 3">
+            <div class="project-img" aria-hidden="true">
+              <div class="video-card" style="position:relative; width:100%; height:420px;">
+                <video id="project3-video" class="card-video" src="assets/videos/video-slide-1.mp4" playsinline preload="metadata" muted loop></video>
+                <div class="in-card-controls" aria-hidden="false">
+                  <button id="p3-play" aria-label="Play/Pause">Play</button>
+                  <button id="p3-mute" aria-label="Mute/Unmute">🔈</button>
+                </div>
+              </div>
+            </div>
+            <div class="project-body">
+              <h4>Campaña en Redes para Z</h4>
+              <p>Conjunto de piezas gráficas adaptadas a formatos de redes y anuncios pagados.</p>
+            </div>
+            <div class="project-footer">
+              <span class="tag">Gráfica</span>
+              <a class="btn" href="#" aria-label="Ver más del proyecto 3">Ver más</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- CONTACTO -->
+      <section id="contacto" aria-labelledby="contacto-titulo">
+        <div class="section-header">
+          <div>
+            <h3 id="contacto-titulo">Contacto</h3>
+            <p>Disponible para proyectos freelance y colaboraciones</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <p style="margin:0 0 10px 0; color:var(--muted)">Escribe para consultas, presupuestos o propuestas de trabajo:</p>
+
+          <!-- Correo proporcionado por la usuaria -->
+          <div class="contacts" role="list">
+            <a class="contact-link" href="mailto:dannaalamada05@gmail.com" role="listitem">dannaalamada05@gmail.com</a>
+            <a class="contact-link" href="#" role="listitem" aria-label="Enlace a LinkedIn">LinkedIn</a>
+            <a class="contact-link" href="#" role="listitem" aria-label="Enlace a Instagram">Instagram</a>
+            <a class="contact-link" href="#" role="listitem" aria-label="Enlace a Behance">Behance</a>
+          </div>
+
+          <p style="margin-top:14px;color:var(--muted);font-size:14px">
+            Reemplaza los enlaces de redes por tus perfiles reales y las imágenes SVG por fotos o capturas de proyectos.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer / nota -->
+    <footer>
+      <div>© <strong>Danna Lucia Almada Torres</strong> — Portafolio personal</div>
+      <div style="margin-top:6px;color:var(--muted)">Diseño oceánico con acento coral — adaptable a dispositivos móviles</div>
+    </footer>
+
+  </div>
+
+  <!-- NOTAS:
+    - Archivo creado en C:\\Users\\user\\Desktop\\portfolio\\index.html
+    - Para editar: abre el archivo en Visual Studio Code y reemplaza las secciones SVG por <img src="ruta/a/imagen.jpg">
+    - Si querés, puedo reemplazar los placeholders por URLs de imágenes que me des o agregar enlaces a cada proyecto.
+  -->
+  <!-- WhatsApp flotante: enlace configurado al número que proporcionaste -->
+  <a class="whatsapp-float" href="https://wa.me/595986423097" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path fill="#fff" d="M20.52 3.478A11.93 11.93 0 0012.03.0C6.11.02 1.06 4.64.13 10.28c-.86 5.09 1.22 9.35 5.67 11.4L3.2 24l2.6-1.01a11.9 11.9 0 006.26 1.66c5.92 0 10.98-4.62 11.9-10.28.97-5.62-1.1-9.92-3.66-12.91zM12.03 21.5a9.43 9.43 0 01-5.2-1.48l-.37-.22-3.08.79.82-3.0-.24-.38A9.46 9.46 0 012.5 11c0-5.08 4.05-9.2 9.03-9.2 4.8 0 8.77 3.65 9 8.48.2 4.53-3.12 8.57-7.5 9.42zM17.2 14.2c-.3-.15-1.8-.9-2.08-1-.28-.1-.47-.14-.67.15-.2.3-.78 1-.96 1.2-.17.2-.35.22-.65.07-.3-.15-1.29-.48-2.46-1.5-.91-.8-1.52-1.78-1.7-2.08-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.28.3-.47.1-.2 0-.38-.05-.53-.05-.15-.67-1.6-.92-2.2-.24-.57-.49-.49-.67-.5-.17-.01-.37-.01-.57-.01-.2 0-.53.07-.81.34-.28.27-1.06 1.03-1.06 2.5 0 1.47 1.09 2.9 1.24 3.1.15.2 2.14 3.25 5.2 4.55 3.06 1.3 3.06.87 3.61.82.55-.05 1.79-.73 2.04-1.44.26-.71.26-1.32.18-1.44-.08-.12-.28-.18-.57-.33z"/>
+    </svg>
+  </a>
+
+  <!-- Lightbox / modal para ver slides en grande -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox-backdrop"></div>
+    <div class="lightbox-panel" role="dialog" aria-modal="true">
+      <button class="lightbox-close" aria-label="Cerrar">×</button>
+      <div class="lightbox-content"></div>
+      <button class="lightbox-prev" aria-label="Anterior">‹</button>
+      <button class="lightbox-next" aria-label="Siguiente">›</button>
+    </div>
+  </div>
+
+  <style>
+    /* Lightbox styles */
+    .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:10000}
+    .lightbox.open{display:flex}
+    .lightbox-backdrop{position:absolute;inset:0;background:rgba(2,6,23,0.7)}
+    .lightbox-panel{position:relative;z-index:10001;max-width:95vw;max-height:90vh;padding:18px;display:flex;align-items:center;justify-content:center}
+    .lightbox-content img,.lightbox-content video{max-width:100%;max-height:80vh;border-radius:8px;display:block}
+    .lightbox-close{position:absolute;right:-6px;top:-6px;background:#07131a;color:#fff;border:0;padding:6px 10px;border-radius:12px;cursor:pointer;z-index:10002}
+    .lightbox-prev,.lightbox-next{position:absolute;left:8px;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.4);color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer}
+    .lightbox-next{left:auto;right:8px}
+  </style>
+  <script>
+    // Rotador avanzado que soporta imágenes y videos, y activa/desactiva audio en la diapositiva de video
+    (function(){
+      // Target only the project 3 slideshow to avoid conflicts
+      const slideshow = document.getElementById('project3-slideshow');
+      if (!slideshow) return;
+      const slides = Array.from(slideshow.querySelectorAll('.slide'));
+      if (!slides || slides.length <= 1) return;
+      let idx = slides.findIndex(s=> s.classList.contains('visible'));
+      if (idx < 0) idx = 0;
+
+      function show(i){
+        slides.forEach((s,j)=>{
+          if (j === i){
+            s.classList.add('visible');
+              const v = s.querySelector('video'); if (v){ v.muted = false; v.play().catch(()=>{ v.muted = true; }); }
+          } else {
+            s.classList.remove('visible');
+            const v = s.querySelector('video'); if (v){ try{ v.pause(); v.currentTime = 0; v.muted = true; }catch(e){} }
+          }
+        });
+        idx = i;
+      }
+
+      show(idx);
+      const intervalMs = 10000; // 10s
+      let timer = setInterval(()=> show((idx+1) % slides.length), intervalMs);
+
+      // Open lightbox on click (handled elsewhere), but also allow clicking slide to open
+      slideshow.addEventListener('click', function(e){
+        const target = e.target.closest('.slide');
+        if (!target) return;
+        const i = slides.indexOf(target);
+        if (i >= 0) openLightbox(i);
+      });
+
+      // Play overlay for blocked autoplay with audio
+      document.addEventListener('click', function(e){
+        const btn = e.target.closest && e.target.closest('.video-play-overlay');
+        if (!btn) return;
+        const slide = btn.closest('.slide'); const vid = slide.querySelector('video');
+        if (!vid) return; vid.muted = false; vid.play().catch(()=>{}); btn.style.display='none';
+      });
+
+      // Lightbox functions (interact with elements defined below)
+      const lightbox = document.getElementById('lightbox');
+      const lbContent = lightbox ? lightbox.querySelector('.lightbox-content') : null;
+      const lbClose = lightbox ? lightbox.querySelector('.lightbox-close') : null;
+      const lbPrev = lightbox ? lightbox.querySelector('.lightbox-prev') : null;
+      const lbNext = lightbox ? lightbox.querySelector('.lightbox-next') : null;
+
+      function openLightbox(i){
+        clearInterval(timer);
+        if (!lbContent) return;
+        lbContent.innerHTML = '';
+        const s = slides[i];
+        if (!s) return;
+        if (s.dataset.type === 'video' || s.querySelector('video')){
+          const src = s.dataset.src || s.querySelector('video')?.getAttribute('src');
+          const v = document.createElement('video');
+          v.src = src; v.controls = true; v.autoplay = true; v.playsInline = true; v.muted = false; v.style.maxWidth = '100%'; v.style.maxHeight = '80vh';
+          lbContent.appendChild(v);
+          v.play().catch(()=>{});
+        } else {
+          const img = document.createElement('img'); img.src = s.getAttribute('src'); img.style.maxWidth = '100%'; img.style.maxHeight = '80vh'; lbContent.appendChild(img);
+        }
+        lightbox.classList.add('open'); lightbox.setAttribute('aria-hidden','false'); lightbox.dataset.current = i;
+      }
+
+      function closeLightbox(){
+        if (!lbContent || !lightbox) return;
+        const media = lbContent.querySelector('video'); if (media){ try{ media.pause(); media.currentTime = 0; }catch(e){} }
+        lightbox.classList.remove('open'); lightbox.setAttribute('aria-hidden','true');
+        timer = setInterval(()=> show((idx+1) % slides.length), intervalMs);
+      }
+
+      function gotoLightbox(i){ const total = slides.length; i = (i + total) % total; openLightbox(i); }
+
+      if (lbClose) lbClose.addEventListener('click', closeLightbox);
+      if (lbPrev) lbPrev.addEventListener('click', function(){ const cur = parseInt(lightbox.dataset.current||'0'); gotoLightbox(cur-1); });
+      if (lbNext) lbNext.addEventListener('click', function(){ const cur = parseInt(lightbox.dataset.current||'0'); gotoLightbox(cur+1); });
+
+      // expose openLightbox to outer scope for clicks above
+      window.openLightbox = openLightbox;
+
+    })();
+  </script>
+
+  <script>
+    // In-card controls for Project 3 video
+    (function(){
+      const vid = document.getElementById('project3-video');
+      const btnPlay = document.getElementById('p3-play');
+      const btnMute = document.getElementById('p3-mute');
+      if (!vid) return;
+      // Start muted and paused
+      vid.muted = true; vid.pause();
+      // Toggle play/pause
+      btnPlay && btnPlay.addEventListener('click', function(e){
+        if (vid.paused){
+          // try unmute and play
+          vid.play().then(()=>{ vid.muted = false; btnPlay.textContent = 'Pausa'; btnMute.textContent = '🔊'; }).catch(()=>{ vid.muted = true; vid.play().catch(()=>{}); btnPlay.textContent = 'Pausa'; });
+        } else { vid.pause(); btnPlay.textContent = 'Play'; }
+      });
+      // Toggle mute
+      btnMute && btnMute.addEventListener('click', function(e){
+        vid.muted = !vid.muted; btnMute.textContent = vid.muted ? '🔈' : '🔇';
+        if (!vid.muted && vid.paused){ vid.play().catch(()=>{}); btnPlay.textContent = 'Pausa'; }
+      });
+      // When video ends or is paused, update UI
+      vid.addEventListener('play', function(){ btnPlay && (btnPlay.textContent = 'Pausa'); });
+      vid.addEventListener('pause', function(){ btnPlay && (btnPlay.textContent = 'Play'); });
+    })();
+  </script>
+</body>
+</html>
